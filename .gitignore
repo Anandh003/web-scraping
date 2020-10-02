@@ -1,0 +1,15 @@
+.vscode/
+*/__pycache__/*
+*.pyc
+.ipynb_checkpoints
+
+develop-eggs/
+eggs/
+build/
+dist/
+*.log
+
+.env/
+.venv/
+venv/
+env/
