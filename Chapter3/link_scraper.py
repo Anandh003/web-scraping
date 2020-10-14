@@ -2,13 +2,13 @@ import random
 import re
 import sys
 import os
+from urllib.parse import urlparse
 
 sys.path.append(os.getcwd())
 
-from urllib.parse import urlparse
 from base import get_page
 
-
+# Gets internal links
 def get_internal_links(bs, include_url):
     include_url = "{}://{}".format(
         urlparse(include_url).scheme, urlparse(include_url).netloc
@@ -28,7 +28,7 @@ def get_internal_links(bs, include_url):
 
     return internal_links
 
-
+# Gets external links
 def get_external_links(bs, exclude_url):
     external_links = []
     links = bs.find_all('a', href=re.compile(
@@ -44,6 +44,9 @@ def get_external_links(bs, exclude_url):
 
     return external_links
 
+
+# Recursively gets external link. If external link not found, move around
+# the website and search for external link
 def get_random_external_links(home_url):
     if not  home_url:
         return None
@@ -71,6 +74,7 @@ def get_random_external_links(home_url):
         return external_links[random.randint(0, len(external_links) - 1)]
 
 
+# Gets external links recursively
 def get_external_links_only(home_url):
     if home_url is None:
         return
